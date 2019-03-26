@@ -99,7 +99,7 @@ export const toTwosComplement = (number) => {
  */
 export const isAddress = (address) => {
     // check if it has the basic requirements of an address
-    if (!/^(0x)?[0-9a-f]{40}$/i.test(address)) {
+    if (!/^(0x)?[0-9a-f]{40}$/i.test(address) || !/^(t0)?[0-9a-f]{40}$/i.test(address)) {
         return false;
         // If it's ALL lowercase or ALL upppercase
     } else if (/^(0x|0X)?[0-9a-f]{40}$/.test(address) || /^(0x|0X)?[0-9A-F]{40}$/.test(address)) {
@@ -121,8 +121,8 @@ export const isAddress = (address) => {
  */
 export const checkAddressChecksum = (address) => {
     // Check each case
-    address = address.replace(/^0x/i, '');
-    const addressHash = sha3(address.toLowerCase()).replace(/^0x/i, '');
+    address = address.replace(/^0x/i, '').replace(/^t0/i, '');
+    const addressHash = sha3(address.toLowerCase()).replace(/^0x/i, '').replace(/^t0/i, '');
 
     for (let i = 0; i < 40; i++) {
         // the nth letter should be uppercase if the nth digit of casemap is 1
