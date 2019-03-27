@@ -99,13 +99,14 @@ export const toTwosComplement = (number) => {
  */
 export const isAddress = (address) => {
     // check if it has the basic requirements of an address
-    if (!/^(0x)?[0-9a-f]{40}$/i.test(address) || !/^(t0)?[0-9a-f]{40}$/i.test(address)) {
+      if (!/^(0x)?[0-9a-f]{40}$/i.test(address) && !/^(t[0-9]{1})?[0-9a-f]{40}$/i.test(address)) {
+        // check if it has the basic requirements of an address
         return false;
-        // If it's ALL lowercase or ALL upppercase
-    } else if (/^(0x|0X)?[0-9a-f]{40}$/.test(address) || /^(0x|0X)?[0-9A-F]{40}$/.test(address)) {
+    } else if (/^(0x)?[0-9a-f]{40}$/.test(address) || /^(0x)?[0-9A-F]{40}$/.test(address) || /^(t[0-9]{1})?[0-9a-f]{40}$/i.test(address) || /^(t[0-9]{1})?[0-9A-F]{40}$/i.test(address)) {
+        // If it's all small caps or all all caps, return true
         return true;
-        // Otherwise check each case
     } else {
+        // Otherwise check each case
         return checkAddressChecksum(address);
     }
 };
